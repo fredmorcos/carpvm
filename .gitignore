@@ -1,0 +1,28 @@
+# Mac files
+.DS_Store
+*.dSYM
+
+# Object files
+*.o
+
+# Binary files
+*.a
+*.out
+carp
+
+# Don't ignore these dirs named `carp`
+!examples/carp
+!src/carp
+
+# Backup files
+*~
+*\#
+*.\#*
+
+# Test files
+!tests/*.c
+
+# Coverage files
+*.gch
+*.gcda
+*.gcno

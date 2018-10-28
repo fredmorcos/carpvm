@@ -1,0 +1,60 @@
+#!/bin/sh
+#
+# A hook script to verify what is about to be committed.  Called by
+# "git commit" with no arguments.  The hook should exit with non-zero
+# status after issuing an appropriate message if it wants to stop the
+# commit.
+
+# Redirect output to stderr.
+exec 1>&2
+
+if ! make
+then
+    echo ''
+    echo 'COMMIT ERROR!'
+    echo 'Your code does not build.'
+    echo 'Please do not commit code that does not build. Please.'
+    exit 1
+fi
+
+if ! ./carp -h
+then
+    echo ''
+    echo 'COMMIT ERROR!'
+    echo './carp -h does not work!'
+    echo 'Please do not commit code that does not work in the simplest case.'
+    exit 1
+fi
+
+if ! make test
+then
+    echo ''
+    echo 'COMMIT ERROR!'
+    echo 'Your code does not pass the tests.'
+    echo 'Please do not commit code that does not pass tests. Please.'
+    exit 1
+fi
+
+for f in $(echo examples/carp/*.carp)
+do
+    if ! ./carp $f
+    then
+        echo ''
+        echo 'COMMIT ERROR!'
+        echo 'You broke CarpVM.'
+        echo "  Example '$f' does not exit properly."
+        exit 1
+    fi
+done
+
+if ! make clean
+then
+    echo ''
+    echo 'COMMIT ERROR!'
+    echo "You broke 'make clean'. Seriously?"
+    exit 1
+fi
+
+echo ''
+echo 'GOOD COMMIT.'
+echo ''

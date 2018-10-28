@@ -1,0 +1,12 @@
+mod:	store -4, 7
+	load -4
+	load -3
+	add
+	pop ax
+	ret
+
+main:	push 5
+	push 6
+	call mod
+	preg ax
+	halt 0
