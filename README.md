@@ -3,10 +3,7 @@
 Based on Carp by Maxwell Bernstein. The goal of the project is to try
 and build a small (and decently reliable) VM from the ground up. Right
 now there are instructions, registers, a stack, data memory, and
-calls. Recursion should work. Please consider this unstable and
-non-ready software. Things do and will change more often than not.
-
-Contributions are most welcome.
+calls. Recursion should work.
 
 ## Differences between Carp (from Maxwell Bernstein) and CarpVM
 
